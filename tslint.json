@@ -6,6 +6,7 @@
     "trailing-comma": [false],
     "quotemark": [true, "single", "jsx-double"],
     "no-var-requires": false,
+    "no-console": false,
     "interface-name": [false, "never-prefix"],
     "arrow-parens": false,
     "interface-over-type-literal": false

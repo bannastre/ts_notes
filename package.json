@@ -1,19 +1,26 @@
 {
-  "name": "nerd-notes",
+  "name": "nerd_notes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && node ./dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.12.1",
+    "typeorm": "^0.2.19"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.6",
     "@types/express": "^4.17.1",
+    "@types/node": "^12.7.5",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
   }
