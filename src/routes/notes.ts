@@ -1,15 +1,14 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { constants } from 'http2';
+import express from 'express';
+import { NotesController } from '../controllers/notes';
 
 const notesRouter = express.Router();
 
-notesRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.status(constants.HTTP_STATUS_NOT_IMPLEMENTED).send();
-  } catch (err) {
-    next(err);
-  }
+const notesController = new NotesController();
 
-});
+notesRouter.post('/', notesController.create);
+notesRouter.get('/', notesController.list);
+notesRouter.get('/:noteId', notesController.read);
+notesRouter.patch('/:noteId', notesController.update);
+notesRouter.delete('/:noteId', notesController.delete);
 
 export default notesRouter;

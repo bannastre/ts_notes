@@ -1,3 +1,4 @@
+import { middleware } from '@capitadsp/core-utils';
 import cors from 'cors';
 import express from 'express';
 import { Server } from 'http';
@@ -12,9 +13,23 @@ const app: express.Express = express();
 
 export async function start(): Promise<Server> {
   const connection: Connection = await createConnection(ormconfig);
+
+  /**
+   * Create the schema for the connection. Ignore the type error.
+   */
+  // @ts-ignore
+  await connection.query(`CREATE SCHEMA IF NOT EXISTS ${ormconfig.schema}`);
+
   console.log(`[db] Connected with ${connection.name}: ${connection.options.type}`);
 
   app.use(cors());
+
+  app.use(middleware.parseRequest());
+  app.use(middleware.trackingInit());
+  app.use(middleware.security());
+  app.use(middleware.logging());
+  app.use(middleware.requestInit());
+  app.use(middleware.schemaValidator(`${__dirname}/../definitions/${config.name}.yaml`));
 
   app.use('/notes', notesRouter);
 
@@ -25,6 +40,9 @@ export async function start(): Promise<Server> {
     console.log(err);
     next(err);
   });
+
+  app.use(middleware.defaultErrorHandler());
+  app.use(middleware.logsClose());
 
   return app.listen(config.port, (err) => {
     if (err) { console.error(err); }

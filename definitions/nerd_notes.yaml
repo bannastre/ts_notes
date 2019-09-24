@@ -1,0 +1,382 @@
+swagger: "2.0"
+info:
+  version: 0.0.6
+  title: "nerd_notes"
+  description: "Nerd Notes Microservice"
+schemes:
+  - http
+  - https
+basePath: /notes
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  noteIdPathParameter:
+    name: noteId
+    in: path
+    description: "Note Object UUID"
+    required: true
+    type: string
+    format: uuid
+paths:
+  "/":
+    get:
+      tags:
+        - Notes
+      summary: List notes
+      description: This will generally return all notes.
+      operationId: listNotes
+      responses:
+        200:
+          description: Request was successful
+          schema:
+            $ref: "#/definitions/NotesResponse"
+        401:
+          description: Unauthorised
+          schema:
+            $ref: "#/definitions/UnauthorisedError"
+        400:
+          description: Invalid Request
+          schema:
+            $ref: "#/definitions/InvalidRequestError"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/InternalServerError"
+      deprecated: false
+    post:
+      tags:
+        - Notes
+      summary: Create a new note
+      operationId: createNote
+      parameters:
+        - in: body
+          name: body
+          description: Request body to create a note
+          required: true
+          schema:
+            $ref: "#/definitions/NotePostRequest"
+      responses:
+        201:
+          description: Request was successful
+          schema:
+            $ref: "#/definitions/NoteResponse"
+        401:
+          description: Unauthorised
+          schema:
+            $ref: "#/definitions/UnauthorisedError"
+        400:
+          description: Invalid Request
+          schema:
+            $ref: "#/definitions/InvalidRequestError"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/InternalServerError"
+      deprecated: false
+  "/{noteId}":
+    get:
+      tags:
+        - Notes
+      summary: Read a specific note
+      description: This will generally return a specific note attributable to a tennant.
+      operationId: readNote
+      parameters:
+        - $ref: "#/parameters/noteIdPathParameter"
+      responses:
+        200:
+          description: Request was successful
+          schema:
+            $ref: "#/definitions/NoteResponse"
+        401:
+          description: Unauthorised
+          schema:
+            $ref: "#/definitions/UnauthorisedError"
+        400:
+          description: Invalid Request
+          schema:
+            $ref: "#/definitions/InvalidRequestError"
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/InternalServerError"
+      deprecated: false
+    patch:
+      tags:
+        - Notes
+      summary: Update a specific note
+      operationId: updateNote
+      parameters:
+        - $ref: "#/parameters/noteIdPathParameter"
+        - in: body
+          name: body
+          description: Request body to update a note
+          required: true
+          schema:
+            $ref: "#/definitions/NotePatchRequest"
+      responses:
+        200:
+          description: Request was successful
+          schema:
+            $ref: "#/definitions/NoteResponse"
+        401:
+          description: Unauthorised
+          schema:
+            $ref: "#/definitions/UnauthorisedError"
+        400:
+          description: Invalid Request
+          schema:
+            $ref: "#/definitions/InvalidRequestError"
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/InternalServerError"
+      deprecated: false
+    delete:
+      tags:
+        - Notes
+      summary: Delete note
+      description: This will generally delete a specific note.
+      operationId: deleteNote
+      parameters:
+        - $ref: "#/parameters/noteIdPathParameter"
+      responses:
+        204:
+          description: Request was successful
+        401:
+          description: Unauthorised
+          schema:
+            $ref: "#/definitions/UnauthorisedError"
+        400:
+          description: Invalid Request
+          schema:
+            $ref: "#/definitions/InvalidRequestError"
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/InternalServerError"
+      deprecated: false
+definitions:
+  OK:
+    additionalProperties: false
+    required:
+      - message
+    properties:
+      message:
+        default: "OK"
+        example: "OK"
+        type: string
+  NotePostRequest:
+    description: "Note Object"
+    type: object
+    additionalProperties: false
+    required:
+      - text
+      - status
+    properties:
+      text:
+        type: string
+        description: "text of Note"
+        example: "here's the text of a note"
+      status:
+        type: string
+        description: "status of Note"
+        example: "draft"
+        enum:
+          - "draft"
+          - "published"
+  NotePatchRequest:
+    description: "Note Object"
+    type: object
+    additionalProperties: false
+    properties:
+      text:
+        type: string
+        description: "text of Note"
+        example: "here's the text of a note"
+      status:
+        type: string
+        description: "status of Note"
+        example: "draft"
+        enum:
+          - "draft"
+          - "published"          
+  NoteResponse:
+    description: "Note Object"
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - text
+      - status
+      - createdAt
+      - updatedAt
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: "ID of Note"
+      text:
+        type: string
+        description: "text of Note"
+        example: "here's the text of a note"
+      status:
+        type: string
+        description: "status of Note"
+        example: "draft"
+        enum:
+          - "draft"
+          - "published"
+      createdAt:
+        type: string
+        format: date-time
+        description: "date the Note was created"
+        example: "2017-07-21T17:32:28Z"
+      updatedAt:
+        type: string
+        format: date-time
+        description: "date the Note was updated"
+        example: "2017-07-21T17:32:28Z"
+  NotesResponse:
+    description: "Array of Notes"
+    type: array
+    items:
+      description: "Note Object"
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - text
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "ID of Note"
+        text:
+          type: string
+          description: "text of Note"
+          example: "here's the text of a note"
+        status:
+          type: string
+          description: "status of Note"
+          example: "draft"
+          enum:
+            - "draft"
+            - "published"
+        createdAt:
+          type: string
+          format: date-time
+          description: "date the Note was created"
+          example: "2017-07-21T17:32:28Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: "date the Note was updated"
+          example: "2017-07-21T17:32:28Z"
+  InvalidRequestError:
+    additionalProperties: false
+    required:
+      - message
+      - details
+    properties:
+      message:
+        type: string
+      details:
+        type: string
+      errors:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - keyword
+            - dataPath
+            - schemaPath
+            - params
+            - message
+          properties:
+            keyword:
+              type: string
+            dataPath:
+              type: string
+            schemaPath:
+              type: string
+            params:
+              type: object
+            message:
+              type: string
+  UnauthorisedError:
+    title: Not Found Error
+    additionalProperties: false
+    required:
+      - message
+      - details
+    properties:
+      message:
+        type: string
+      details:
+        type: string
+      errors:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - keyword
+            - dataPath
+            - schemaPath
+            - params
+            - message
+          properties:
+            keyword:
+              type: string
+            dataPath:
+              type: string
+            schemaPath:
+              type: string
+            params:
+              type: object
+            message:
+              type: string
+  InternalServerError:
+    title: Internal Server Error
+    additionalProperties: false
+    required:
+      - message
+    properties:
+      message:
+        type: string
+      details:
+        type: string
+      errors:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - keyword
+            - dataPath
+            - schemaPath
+            - params
+            - message
+          properties:
+            keyword:
+              type: string
+            dataPath:
+              type: string
+            schemaPath:
+              type: string
+            params:
+              type: object
+            message:
+              type: string

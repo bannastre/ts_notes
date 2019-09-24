@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - "3000:3000"
+    environment:
+      DB_HOST: db
   db:
     image: postgres
     restart: always
