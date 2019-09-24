@@ -1,4 +1,4 @@
-import { middleware } from '@capitadsp/core-utils';
+import { middleware } from '@core/utils';
 import cors from 'cors';
 import express from 'express';
 import { Server } from 'http';

@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@capitadsp/core-utils": "git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
+    "@core/utils": "file:utils",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^7.12.1",

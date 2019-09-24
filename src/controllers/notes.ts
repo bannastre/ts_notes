@@ -16,11 +16,8 @@ export interface INotesController {
 export class NotesController implements INotesController {
   public create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log("TCL: NotesController -> this.create -> req", req.body)
       const noteRepo: NoteRepository = getCustomRepository(NoteRepository);
-      console.log("TCL: NotesController -> noteRepo", noteRepo)
       const note: Note = noteRepo.create(req.body);
-      console.log('TCL: NotesController -> note', note);
       const savedNote = await noteRepo.save(note);
       res.status(constants.HTTP_STATUS_CREATED).send(savedNote);
     } catch (err) {
