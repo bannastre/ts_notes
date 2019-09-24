@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server.js",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f src/ormconfig.ts",
-    "db:sync": "npm run build && npm run typeorm:cli schema:sync"
+    "db:migrate": "npm run typeorm:cli migration:run",
+    "db:sync": "npm run typeorm:cli schema:sync",
+    "start:docker": "npm run build && npm run db:sync && npm start"
   },
   "keywords": [],
   "author": "",

@@ -7,8 +7,10 @@ services:
     environment:
       DB_HOST: db
   db:
-    image: postgres
+    image: postgres:9.4
+    volumes:
+      - ./createschemas.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
     environment:
       POSTGRES_PASSWORD: super_secret
-      POSTGRES_DB: nerd_notes
+      POSTGRES_DB: nerd_notes   

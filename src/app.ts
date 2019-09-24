@@ -13,13 +13,6 @@ const app: express.Express = express();
 
 export async function start(): Promise<Server> {
   const connection: Connection = await createConnection(ormconfig);
-
-  /**
-   * Create the schema for the connection. Ignore the type error.
-   */
-  // @ts-ignore
-  await connection.query(`CREATE SCHEMA IF NOT EXISTS ${ormconfig.schema}`);
-
   console.log(`[db] Connected with ${connection.name}: ${connection.options.type}`);
 
   app.use(cors());
