@@ -1,14 +1,14 @@
 {
   "_from": "git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
-  "_id": "@capitadsp/core-utils@0.0.8",
+  "_id": "@core/utils@0.0.8",
   "_inBundle": false,
   "_integrity": "",
-  "_location": "/@capitadsp/core-utils",
+  "_location": "/@core/utils",
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "@capitadsp/core-utils@git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
-    "name": "@capitadsp/core-utils",
+    "raw": "@core/utils@git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
+    "name": "@core/utils",
     "escapedName": "@capitadsp%2fcore-utils",
     "scope": "@capitadsp",
     "rawSpec": "git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
@@ -20,7 +20,7 @@
     "/"
   ],
   "_resolved": "git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git#94f40d2db804b0ee29b8a6676b24cc72140d080b",
-  "_spec": "@capitadsp/core-utils@git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
+  "_spec": "@core/utils@git+https://ndavies-jigsaw:CEruX8JLKshjmR9SyNuc@bitbucket.org/capitadsp/ob-core-utils.git",
   "_where": "/Users/chrisharrop/Training/ts/nerd-notes",
   "author": {
     "name": "JigsawXYZ"
@@ -69,7 +69,7 @@
   "homepage": "https://bitbucket.org/capitadsp/ob-core-utils#readme",
   "license": "UNLICENSED",
   "main": "dist/index.js",
-  "name": "@capitadsp/core-utils",
+  "name": "@core/utils",
   "private": true,
   "repository": {
     "type": "git",

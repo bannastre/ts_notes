@@ -10,6 +10,6 @@ COPY ./definitions ./definitions
 
 RUN npm install --no-package-lock
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD npm run start:docker

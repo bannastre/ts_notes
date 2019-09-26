@@ -1,4 +1,5 @@
 export default {
   name: 'nerd_notes',
-  port: 3000
+  port: 3001,
+  url: 'http://localhost'
 };

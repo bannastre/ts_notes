@@ -42,3 +42,5 @@ export async function start(): Promise<Server> {
     console.log(`Express server listening on port ${config.port}`);
   });
 }
+
+export { app };

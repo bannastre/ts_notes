@@ -3,17 +3,9 @@ import { constants } from 'http2';
 import { getCustomRepository } from 'typeorm';
 import { Note } from '../entities/notes';
 import { NoteRepository } from '../repositories/notes';
-import { NoteResponse } from '../types/contracts';
+import { IController } from '../types/interfaces';
 
-export interface INotesController {
-  create(req: Request, res: Response, next: NextFunction): Promise<void>;
-  list(req: Request, res: Response, next: NextFunction): Promise<void>;
-  read(req: Request, res: Response, next: NextFunction): Promise<void>;
-  update(req: Request, res: Response, next: NextFunction): Promise<void>;
-  delete(req: Request, res: Response, next: NextFunction): Promise<void>;
-}
-
-export class NotesController implements INotesController {
+export class NotesController implements IController {
   public create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const noteRepo: NoteRepository = getCustomRepository(NoteRepository);
